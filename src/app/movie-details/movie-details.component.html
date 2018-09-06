@@ -1,0 +1,42 @@
+<button [routerLink]="['/movies']">Back to the list</button>
+<div *ngIf="(movieDetails$ | async) as details; else nodata">
+  <h2>{{details.name}}</h2>
+  <div class="movie-card">
+    <div class="disc-cover-pane">
+      <img [src]="'assets/images/movie-covers/' + details.img" alt="Disk cover" height="268" width="182">
+    </div>
+    <div>
+      <table>
+        <tbody>
+          <tr>
+            <td>Title</td>
+            <td>{{details.name}}</td>
+          </tr>
+          <tr>
+            <td>Genres</td>
+            <td>
+              <ul>
+                <li *ngFor="let tag of details.genres">{{tag}}</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td>Description</td>
+            <td>{{details.description}}</td>
+          </tr>
+          <tr>
+            <td>Rating</td>
+            <td>{{details.rate}}</td>
+          </tr>
+          <tr>
+            <td>Runtime</td>
+            <td>{{details.length}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<ng-template #nodata>
+  <p>No data found</p>
+</ng-template>

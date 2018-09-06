@@ -1,0 +1,13 @@
+<div>
+  <h2>Movies</h2>
+  <div>
+    <input [formControl]="searchInput" placeholder="search...">
+    <button (click)="searchInput.reset('')">X</button>
+  </div>
+  <ul>
+
+    <li *ngFor="let movie of (movieList$ | async); trackBy: trackByMovieId">
+        <app-movie-list-item [movie]="movie"></app-movie-list-item>
+    </li>
+  </ul>
+</div>

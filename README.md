@@ -1,2 +1,2 @@
 # movies
-Demo app
+Angular 6 demo app

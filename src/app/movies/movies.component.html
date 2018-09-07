@@ -1,13 +1,19 @@
 <div>
-  <h2>Movies</h2>
   <div>
-    <input [formControl]="searchInput" placeholder="search...">
+    <label for="search">Search:</label>
+    <input id="search" [formControl]="searchInput" placeholder="search...">
     <button (click)="searchInput.reset('')">X</button>
   </div>
+  <div>
+    <label for="genre">Filter by genre:</label>
+    <select [formControl]="genreSelector" id="genre">
+      <option *ngFor="let genre of genres" [ngValue]="genre">{{ genre || '' }}</option>
+    </select>
+    <button (click)="genreSelector.setValue(null)">X</button>
+  </div>
   <ul>
-
     <li *ngFor="let movie of (movieList$ | async); trackBy: trackByMovieId">
-        <app-movie-list-item [movie]="movie"></app-movie-list-item>
+      <app-movie-list-item [movie]="movie"></app-movie-list-item>
     </li>
   </ul>
 </div>

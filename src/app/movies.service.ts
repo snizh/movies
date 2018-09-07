@@ -15,26 +15,24 @@ const movieList: MovieDigest[] = movies.map(elem => ({
   providedIn: 'root'
 })
 export class MoviesService {
-  moviesSubject: Subject<MovieDigest[]>;
+  moviesSubject: Subject<MovieDigest[]> = new BehaviorSubject<MovieDigest[]>(movieList);
 
   constructor() { }
 
   getMovies(): Observable<MovieDigest[]> {
-    if (!this.moviesSubject) {
-      this.moviesSubject = new BehaviorSubject<MovieDigest[]>(movieList);
-    }
     return this.moviesSubject.asObservable();
   }
 
-  search(pattern: string = ''): void {
-    this.moviesSubject.next(this.getFilteredMovieList(pattern));
+  filter(params: any): void {
+    this.moviesSubject.next(
+      movieList
+        .filter(elem => params.pattern ? elem.name.toLowerCase().includes(params.pattern.toLowerCase()) : true)
+        .filter(elem => params.genre ? elem.genres.toLowerCase().includes(params.genre.toLowerCase()) : true)
+    );
   }
 
   getMovie(movieId: number): Observable<MovieDetails> {
     return of<MovieDetails>(movies.filter(elem => elem.id === movieId)[0]);
   }
 
-  private getFilteredMovieList(pattern: string): MovieDigest[] {
-    return movieList.filter(elem => elem.name.toLowerCase().includes(pattern.toLowerCase()));
-  }
 }

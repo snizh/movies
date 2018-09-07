@@ -11,6 +11,7 @@ import { MovieListItemComponent } from './movie-list-item/movie-list-item.compon
 const appRoutes: Routes = [
   { path: 'movies', component: MoviesComponent },
   { path: 'movies/:id', component: MovieDetailsComponent },
+  { path: '**', redirectTo: 'movies'}
 ];
 
 @NgModule({
@@ -18,7 +19,7 @@ const appRoutes: Routes = [
     AppComponent,
     MoviesComponent,
     MovieDetailsComponent,
-    MovieListItemComponent
+    MovieListItemComponent,
   ],
   imports: [
     BrowserModule,
